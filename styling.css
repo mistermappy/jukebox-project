@@ -1,3 +1,8 @@
-button {
-	float: flex; 
+#songCover {
+	display: block ;
+	margin-bottom: 10px ;
+}
+
+body {
+	font-family: 'Anton', sans-serif;
 }
