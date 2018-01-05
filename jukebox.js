@@ -1,46 +1,21 @@
-var songs = ['CastleOnTheHill.mp3', 
-			 'Missile.mp3',
-			 'RunBoyRun.mp3', 
-			 'Thunderstruck.mp3',
-			 'xraydog.mp3'];
+function Jukebox(){
+		let songs = [ { title: 'CastleOnTheHill', artist: 'Ed Sheeran', fileName: 'CastleOnTheHill.mp3', image: 'ed.jpg'},
+					  { title: 'Missile', artist: 'Dorothy', fileName: 'Missile.mp3', image: 'missile.jpg'},
+					  { title: 'RunBoyRun', artist: 'WoodKid', fileName: 'RunBoyRun.mp3', image: 'runboyrun.jpg'}
+					]
 
-var images = ['ed.jpg',
-			  'missile.jpg',
-			  'runboyrun.jpg',
-			  'thunderstruck.jpg',
-			  'xraydog.jpg'];
+		let song = new Audio();
+		let i = 0; 
 
-var songTitle = ['Castle on the Hill',
-				 'Missile',
-				 'Run Boy Run',
-				 'Thunderstruck',
-				 'Here Comes the King'];
-
-var artist = ['Ed Sheeran',
-			  'Dorothy',
-			  'Woodkid',
-			  'ACDC',
-			  'Xray Dog'];
+	this.loadSong = function() {
+		//points to the first song to be played, paused, etc..
+		song.src= 'songs/' + songs[i].fileName;
+		songs[i].title
+		songs[i].artist
+	}
 
 
-var song = new Audio();
-var image = $('#songCover')
-
-
-var i = 0; //counter 
-
-var jukebox = function jukebox(){
-		//creates jukebox constructor
-	};
-
-jukebox.prototype.loadSong = function() {
-	//points to the first song to be played, paused, etc..
-	song.src= 'songs/' + songs[i];
-	songTitle[i]
-	artist[i]
-};
-
-jukebox.prototype.playNpause = function() {
+	this.playNpause = function() {
 	if (song.paused) {
 		song.play();
 		$('#toggler')[0].innerHTML = 'Pause';
@@ -52,55 +27,55 @@ jukebox.prototype.playNpause = function() {
 		//changes pause button to play 
 	}
 	//adds play and pause function to jukebox constructor
-};
+	};
 
 
-jukebox.prototype.stop = function() {
-	song.pause();
-	song.currentTime = 0;
-	//adds stop function to jukebox constructor
-}
-
-jukebox.prototype.next = function() {
-	i++; 
-	if(i == songs.length){
-		i = 0; 
+	this.stop = function() {
+		song.pause();
+		song.currentTime = 0;
+		//adds stop function to jukebox constructor
 	}
-	song.src= 'songs/' + songs[i]; 
-	song.play();
-	$('#songCover')[0].src = 'images/' + images[i]
-	$('#songTitle')[0].innerHTML = songTitle[i]
-	$('#artist')[0].innerHTML = artist[i];
-	//loads next song 
-};
+
+	this.next = function() {
+		i++; 
+		if(i == songs.length){
+			i = 0; 
+		}
+		song.src= 'songs/' + songs[i].fileName; 
+		song.play();
+		$('#songCover')[0].src = 'images/' + songs[i].image 
+		$('#songTitle')[0].innerHTML = songs[i].title
+		$('#artist')[0].innerHTML = songs[i].artist
+		//loads next song 
+	};
 	
-jukebox.prototype.prev = function() {
-	i--; 
-	if(i < 0){
-		i = songs.length-1;
+	this.prev = function() {
+		i--; 
+		if(i < 0){
+			i = songs.length-1;
+		}
+		song.src = 'songs/' + songs[i].fileName;
+		song.play(); 
+		$('#songCover')[0].src = 'images/' + songs[i].image;
+		$('#songTitle')[0].innerHTML = songs[i].title;
+		$('#artist')[0].innerHTML = songs[i].artist;
+		//loads previous song
 	}
-	song.src = 'songs/' + songs[i];
-	song.play(); 
-	$('#songCover')[0].src = 'images/' + images[i];
-	$('#songTitle')[0].innerHTML = songTitle[i]
-	$('#artist')[0].innerHTML = artist[i];
-	//loads previous song
+
+	this.randomize = function() {
+		min = Math.ceil(0);
+		max = Math.floor(songs.length);
+		j = Math.floor(Math.random() * (max-min)) + min ; 
+		song.src = 'songs/' + songs[j].fileName;
+		song.play();
+		$('#songCover')[0].src = 'images/' + songs[j].image;
+		$('#songTitle')[0].innerHTML = songs[j].title;
+		$('#artist')[0].innerHTML = songs[j].artist;
+	}
 }
-
-jukebox.prototype.randomize = function() {
-	min = Math.ceil(0);
-	max = Math.floor(songs.length);
-	j = Math.floor(Math.random() * (max-min)) + min ; 
-	song.src = 'songs/' + songs[j];
-	song.play();
-	$('#songCover')[0].src = 'images/' + images[j];
-	$('#songTitle')[0].innerHTML = songTitle[j]
-	$('#artist')[0].innerHTML = artist[j];
-	}
-
-var Jukebox = new jukebox(); 
+var jukebox1 = new Jukebox(); 
 //creates Jukebox object inheriting from jukebox constructor
-var loadSong = Jukebox.loadSong;
+var loadSong = jukebox1.loadSong;
 //creates variable with the value of Jukebox loadSong() function
 window.onload = loadSong(); 
 //when the page is loaded, immediately run the variable loadSong which has a function value
