@@ -4,20 +4,28 @@
 <meta charset='utf-8'>
 <link href="styling.css" rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <img id='songCover' src='images/ed.jpg' width='200px' height='200px'>
 <p id='songTitle'>Castle on the Hill</p>
 <p id='artist'>Ed Sheeran</p>
-<button id='toggler' onclick='jukebox1.playNpause()'>Play</button>
-<button onclick='jukebox1.stop()'>Stop</button>
-<button onclick='jukebox1.next()'>Next</button>
-<button onclick='jukebox1.prev()'>Previous</button>
-<button onclick='jukebox1.randomize()'>Shuffle</button>
+<p id="descriptionGenre"></p>
+<img id="artwork" src="">
+<div class='buttons'>
+<button class='btn btn-success' id='toggler' onclick='jukebox1.playNpause()'>Play</button>
+<button class='btn btn-success' onclick='jukebox1.stop()'>Stop</button>
+<button class='btn btn-success' onclick='jukebox1.next()'>Next</button>
+<button class='btn btn-success' onclick='jukebox1.prev()'>Previous</button>
+<button class='btn btn-success' onclick='jukebox1.randomize()'>Shuffle</button><br/><br/>
 
+<input id='trackID' placeholder='Paste track ID here' /><br/>
+<button class='btn btn-success' id='ScBtn' onclick='jukebox1.addSCtrack()'>Play SC Track</button>
+</div>
 <audio src='file:///C:/Users/Miko/Desktop/jukebox-project/songs'></audio>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
 <script src='jukebox.js'></script>
 </body>
 </HTML>

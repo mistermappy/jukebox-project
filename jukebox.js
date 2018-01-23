@@ -1,3 +1,12 @@
+SC.initialize({
+	client_id: 'fd4e76fc67798bfa742089ed619084a6',
+	redirect_uri: 'http://localhost:3000/'
+});
+
+SC.resolve("http://soundcloud.com/forss/voca-nomen-tuum").then(function(response) {
+		console.log(response);
+	})
+
 function Jukebox(){
 		let songs = [ { title: 'CastleOnTheHill', artist: 'Ed Sheeran', fileName: 'CastleOnTheHill.mp3', image: 'ed.jpg'},
 					  { title: 'Missile', artist: 'Dorothy', fileName: 'Missile.mp3', image: 'missile.jpg'},
@@ -71,7 +80,23 @@ function Jukebox(){
 		$('#songCover')[0].src = 'images/' + songs[j].image;
 		$('#songTitle')[0].innerHTML = songs[j].title;
 		$('#artist')[0].innerHTML = songs[j].artist;
-	}
+	};
+
+	this.addSCtrack = function() {
+       		path = $("#trackID").val();
+     		trackid = "tracks/" + path;
+     		SC.get(trackid).then(function(tracks){
+				played.src = tracks.stream_url + "?client_id=fd4e76fc67798bfa742089ed619084a6";
+				name.innerText = tracks.title;
+				artist.innerText = tracks.user.username;
+				scTrackLink.href = tracks.permalink_url;
+				scTrackLink.innerText = "Check out the track page";
+				scUserLink.href = tracks.user.permalink_url;
+				scUserLink.innerText = "Check out the artist's page";
+				descrAndGenre.innerText = "Description: " + tracks.description + " Genre: " + tracks.genre; 
+				artwork.src = tracks.artwork_url + "?client_id=fd4e76fc67798bfa742089ed619084a6";
+			});
+		};
 }
 var jukebox1 = new Jukebox(); 
 //creates Jukebox object inheriting from jukebox constructor
